@@ -12,6 +12,7 @@ class Controller extends Package
     protected $pkgHandle = 'community_store_fulfilment_notifications';
     protected $appVersionRequired = '8.4';
     protected $pkgVersion = '0.9.2';
+    protected $packageDependencies = ['community_store'=>'2.0'];
 
     protected $pkgAutoloaderRegistries = [
         'src/CommunityStoreFulfilmentNotifications' => '\Concrete\Package\CommunityStoreFulfilmentNotifications',
@@ -29,14 +30,7 @@ class Controller extends Package
 
     public function install()
     {
-        $app = ApplicationFacade::getFacadeApplication();
-        $installed = $app->make(PackageService::class)->getInstalledHandles();
-
-        if(!(is_array($installed) && in_array('community_store',$installed)) ) {
-            throw new ErrorException(t('This package requires that Community Store be installed'));
-        } else {
-            $pkg = parent::install();
-        }
+         parent::install();
     }
 
     public function on_start() {
